@@ -24,10 +24,17 @@ static int festival_nr;
 
 static int player_nr;
 
-//수정중... 놓침 
+//수정중... 놓침
+#if 0 //수정중이라 
+typedef struct player (
+		int energy;
+		int position
+		)
+		
+#endif
 
 
-
+// if0 
 static int player_energy[MAX_PLAYER];
 static int player_position[MAX_PLAYER];
 static char player_name[MAX_PLAYER][MAX_CHARNAME];

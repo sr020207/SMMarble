@@ -15,13 +15,13 @@
 
 
 static char smmNodeName[SMMNODE_TYPE_MAX][MAX_CHARNAME] = {
-       "????",
-       "???",
-       "?????",
-       "??",
-       "?????????",
-       "????????",
-       "?????ð?"
+       "강의",
+       "식당",
+       "실험실",
+       "집",
+       "실험실로이동",
+       "음식찬스",
+       "축제시간"
 };
 
 char* smmObj_getTypeName(int type)
@@ -29,7 +29,7 @@ char* smmObj_getTypeName(int type)
       return (char*)smmNodeName[type];
 }
 
-//1. ????u ???? ????
+//1. 구조체 형식 정의
 typedef struct smmObject {
        char name[MAX_CHARNAME];
        int type;
@@ -37,7 +37,7 @@ typedef struct smmObject {
        int energy;
 } smmObject_t;
 
-//2. ????u ?迭 ???? ???? 
+//2. 구조체 배열 변수 정의
 smmObject_t smm_node[MAX_NODE];
 
 #if 0
@@ -49,7 +49,7 @@ static int smmObj_energy[MAX_NODE];
 
 static int smmObj_noNode = 0;
 
-//3. ???? ??? ???? 
+//3. 관련 함수 변경
 //object generation
 void smmObj_genNode(char* name, int type, int credit, int energy)
 {
@@ -68,13 +68,13 @@ void smmObj_genNode(char* name, int type, int credit, int energy)
     smmObj_noNode++;
 }
 
-//3. ???? ??? ???? 
+//3. 관련 함수 변경
 char* smmObj_getNodeName(int node_nr)
 {
     return smm_node[node_nr].name;
 }
 
-//3. ???? ??? ???? 
+//3. 관련 함수 변경 
 int smmObj_getNodeType(int node_nr)
 {
     return smm_node[node_nr].type;
