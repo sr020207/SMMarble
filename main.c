@@ -24,20 +24,23 @@ static int festival_nr;
 
 static int player_nr;
 
-//수정중... 놓침
-#if 0 //수정중이라 
-typedef struct player (
-		int energy;
-		int position
-		)
-		
-#endif
+
+typedef struct player {
+        int energy;
+        int position;
+        char name[MAX_CHARNAME];
+        int accumCredit;
+        int flag_graduate;
+} player_t;
 
 
-// if0 
+static player_t cur_player[MAX_PLAYER];
+
+#if 0
 static int player_energy[MAX_PLAYER];
 static int player_position[MAX_PLAYER];
 static char player_name[MAX_PLAYER][MAX_CHARNAME];
+#endif
 
 //function prototypes
 #if 0
@@ -52,6 +55,20 @@ void printGrades(int player); //print all the grade history of the player
 #endif
 
 
+void printPlayerStatus(void)
+{
+     int i;
+     
+     for (i=0;i<player_nr;i++)
+     {
+         printf("%s : credit %i, energy %i, position %i\n", 
+                      cur_player[i].name,
+                      cur_player[i].accumCredit,
+                      cur_player[i].energy,
+                      cur_player[i].position);
+     }
+}
+
 void generatePlayers(int n, int initEnergy) //generate a new player
 {
      int i;
@@ -59,15 +76,19 @@ void generatePlayers(int n, int initEnergy) //generate a new player
      for (i=0;i<n;i++)
      {
          //input name
-         printf("Input player %i's name:", i); //??? ???? 
-         scanf("%s", player_name[i]);
+         printf("Input player %i's name:", i); //???
+         scanf("%s", cur_player[i].name);
          fflush(stdin);
          
          //set position
-         player_position[i] = 0;
+         //player_position[i] = 0;
+         cur_player[i].position = 0;
          
          //set energy
-         player_energy[i] = initEnergy;
+         //player_energy[i] = initEnergy;
+         cur_player[i].energy = initEnergy;
+         cur_player[i].accumCredit = 0;
+         cur_player[i].flag_graduate = 0;
      }
 }
 
@@ -87,19 +108,33 @@ int rolldie(int player)
     return (rand()%MAX_DIE + 1);
 }
 
-#if 0
 //action code when a player stays at a node
 void actionNode(int player)
 {
+    int type = smmObj_getNodeType( cur_player[player].position );
+    
     switch(type)
     {
         //case lecture:
+        case SMMNODE_TYPE_LECTURE:
+            // if //컴파일 안 돼서 지워봄 
+            cur_player[player].accumCredit += smmObj_getNodeCredit( cur_player[player].position );
+            cur_player[player].energy -= smmObj_getNodeEnergy( cur_player[player].position );
+            break; 
+            
         default:
             break;
     }
 }
-#endif
 
+void goForward(int player, int step)
+{
+     cur_player[player].position += step;
+     
+     printf("%s go to node %i (name: %s)\n", 
+                cur_player[player].name, cur_player[player].position,
+                smmObj_getNodeName(cur_player[player].position));
+}
 
 
 int main(int argc, const char * argv[]) {
@@ -111,6 +146,7 @@ int main(int argc, const char * argv[]) {
     int energy;
     int i;
     int initEnergy;
+    int turn=0;
     
     board_nr = 0;
     food_nr = 0;
@@ -199,27 +235,30 @@ int main(int argc, const char * argv[]) {
     
     
     
-    #if 0
+    
+    
     //3. SM Marble game starts ---------------------------------------------------------------------------------
-    while () //is anybody graduated?
+    while (1) //is anybody graduated?
     {
         int die_result;
         
+        
         //4-1. initial printing
-        //printPlayerStatus();
+        printPlayerStatus();
         
         //4-2. die rolling (if not in experiment)        
+        die_result = rolldie(turn);
         
         //4-3. go forward
-        //goForward();
+        goForward(turn, die_result);
 
 		//4-4. take action at the destination node of the board
-        //actionNode();
+        actionNode(turn);
         
         //4-5. next turn
-        
+        turn = (turn + 1)%player_nr;
     }
-    #endif
+    
     system("PAUSE");
     return 0;
 }
