@@ -30,7 +30,7 @@ char* smmObj_getTypeName(int type)
 }
 
 
-
+/*
 typedef enum smmObjGrade { //각 노드에 대한 성적을 정의
     smmObjGrade_Ap,
     smmObjGrade_A0,
@@ -42,6 +42,7 @@ typedef enum smmObjGrade { //각 노드에 대한 성적을 정의
     smmObjGrade_C0,
     smmObjGrade_Cm
 } smmObjGrade_e;
+*/
 
 //1. 구조체 형식 정의
 typedef struct smmObject {
@@ -53,8 +54,8 @@ typedef struct smmObject {
        smmObjGrade_e grade;
 } smmObject_t;
 
-//static smmObject_t smm_node[MAX_NODE];
-//static int smmObj_noNode = 0;
+static smmObject_t smm_node[MAX_NODE];
+static int smmObj_noNode = 0;
 
 //3. 관련 함수 변경 
 //object generation

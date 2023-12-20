@@ -196,16 +196,20 @@ int main(int argc, const char * argv[]) {
     printf("Reading board component......\n");
     
     void *boardObj; // boardObj를 함수 블록의 시작 부분에 선언
- while (fscanf(fp, "%s %i %i %i", name, &type, &credit, &energy) == 4) {
-    // store the parameter set
-    // (char* name, smmObjType_e objType, int type, int credit, int energy, smmObjGrade_e grade)
-    boardObj = smmObj_genObject(name, smmObjType_board, type, credit, energy, 0);
-    smmdb_addTail(LISTNO_NODE, boardObj);
-
-    if (type == SMMNODE_TYPE_HOME)
-        initEnergy = energy;
-    board_nr++;
-}
+    while ( fscanf(fp, "%s %i %i %i", name, &type, &credit, &energy) == 4 ) //read a node parameter set
+    {
+        //store the parameter set
+        //(char* name, smmObjType_e objType, int type, int credit, int energy, smmObjGrade_e grade)
+        //void *boardObj = smmObj_genObject(name, smmObjType_board, type, credit, energy, 0);
+        smmObj_genObject(name, smmObjType_board, type, credit, energy, 0); // 반환값 무시
+		
+		smmdb_addTail(LISTNO_NODE, boardObj);
+        
+        
+        if (type == SMMNODE_TYPE_HOME)
+           initEnergy = energy;
+        board_nr++;
+    }
     fclose(fp);
     printf("Total number of board nodes : %i\n", board_nr);
     
