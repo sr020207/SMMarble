@@ -11,11 +11,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_CHARNAME                200
+#define MAX_CHARNAME                200 // 이름 길이 
 
-#define GRADUATE_CREDIT             30
-#define MAX_DIE                     6
-#define MAX_PLAYER                  100
+#define GRADUATE_CREDIT             30 // 졸업까지 최소 학점 
+
+#define MAX_DIE                     6 // 주사위 
+
+#define MAX_PLAYER                  100 // 플레이어 수 
 
 
 #endif /* smm_common_h */
