@@ -15,14 +15,14 @@
 typedef struct node{
     int index;      //index of the node
     void* obj;      //object data
-    void* next;         //pointer to the next 다음 노드 포인터 
-    void* prev;         //pointer to the next 이전 노드 포인터 
+    void* next;         //pointer to the next
+    void* prev;         //pointer to the next
 } node_t;
 
 
-static node_t* list_database[MAX_LIST];
-static node_t* listPtr[MAX_LIST];
-static int list_cnt[MAX_LIST];
+static node_t* list_database[MAX_LIST]; // 리스트 데이터베이스 배열
+static node_t* listPtr[MAX_LIST]; // 리스트의 현재 위치를 가리키는 포인터 배열
+static int list_cnt[MAX_LIST]; // 리스트의 현재 길이를 나타내는 배열
 
 
 //Inner functions (cannot used at the outside of this file)
@@ -104,6 +104,7 @@ int smmdb_addTail(int list_nr, void* obj)
     node_t* newNdPtr;
     
     //parameter checking
+    // 매개변수 확인 
     if (obj == NULL)
     {
         printf("[ERROR] smmdb_addTail() : Failed to do addTail : input object indicates NULL!\n");
@@ -111,6 +112,7 @@ int smmdb_addTail(int list_nr, void* obj)
     }
     
     //generate new node
+    // 새로운 노드 생성 
     newNdPtr = genNode();
     if (newNdPtr == NULL)
     {
@@ -120,6 +122,7 @@ int smmdb_addTail(int list_nr, void* obj)
     newNdPtr->obj = obj;
     
     //add node to the list tail
+    // 노드를 리스트 꼬리에 추가 
     if (list_database[list_nr] == NULL)
     {
         list_database[list_nr] = newNdPtr;
@@ -211,6 +214,7 @@ void* smmdb_getData(int list_nr, int index)
     node_t* ndPtr;
     
     //parameter checking
+    // 매개변수 확인 
     if ((ndPtr = smmList(list_nr, index)) != NULL)
     {
         obj = (void*)ndPtr->obj;

@@ -18,24 +18,12 @@
 
 #define SMMNODE_TYPE_MAX                7
 
+// 오브젝트의 종류를 정의하는 열거형 
 typedef enum smmObjType {
     smmObjType_board = 0,
     smmObjType_card,
     smmObjType_grade
 } smmObjType_e;
-
-typedef enum smmObjGrade {
-	
-    smmObjGrade_Ap,
-    smmObjGrade_A0,
-    smmObjGrade_Am,
-    smmObjGrade_Bp,
-    smmObjGrade_B0,
-    smmObjGrade_Bm,
-    smmObjGrade_Cp,
-    smmObjGrade_C0,
-    smmObjGrade_Cm
-} smmObjGrade_e;
 
 /* node type :
     lecture,
@@ -63,24 +51,19 @@ typedef enum smmObjGrade {
 
 
 //object generation
-//void smmObj_genObject(char* name, smmObjType_e objType, int type, int credit, int energy, smmObjGrade_e grade);
-// 오류나서 지워봄 
-/*
+//오브젝트를 생성하는 함수
+void smmObj_genObject(char* name, smmObjType_e objType, int type, int credit, int energy, smmObjGrade_e grade);
+
 //member retrieving
+//각 노드의 속성을 반환하는 함수
 char* smmObj_getNodeName(int node_nr);
 int smmObj_getNodeType(int node_nr);
 int smmObj_getNodeCredit(int node_nr);
 int smmObj_getNodeEnergy(int node_nr);
 
 //element to string
+//노드 타입을 입력 받아 해당하는 문자열을 반환하는 함수
 char* smmObj_getTypeName(int type);
-*/
-
-char* smmObj_getNodeName(void* obj);
-//왜 오류나지 int smmObj_getNodeType(void* obj);
-// int smmObj_getNodeCredit(void* obj);
-// int smmObj_getNodeEnergy(void* obj);
-smmObjGrade_e smmObj_getNodeGrade(void* obj);
 
 
 #endif /* smm_object_h */
