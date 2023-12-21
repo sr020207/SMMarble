@@ -25,12 +25,13 @@ static int festival_nr;
 static int player_nr;
 
 
+// 플레이어 구조체 정의 
 typedef struct player {
-        int energy;
-        int position;
-        char name[MAX_CHARNAME];
-        int accumCredit;
-        int flag_graduate;
+        int energy; // 에너지 
+        int position; // 현재 위치 
+        char name[MAX_CHARNAME]; // 플레이어 이름 
+        int accumCredit; // 누적 학점 
+        int flag_graduate; // 졸업 여부 (1 or 0) 
 } player_t;
 
 static player_t *cur_player;
@@ -54,6 +55,11 @@ void* findGrade(int player, char *lectureName); //find the grade from the player
 void printGrades(int player); //print all the grade history of the player
 #endif
 
+void opening(){
+   printf("--------------------------------\n");
+   printf("--------Sookmyung Marble--------\n");
+   printf("--------------------------------\n");
+}
 
 void printGrades(int player)
 {
